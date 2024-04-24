@@ -9,6 +9,7 @@ import Home from './pages/home'
 import UserPage from './pages/UserPage'
 import PlayQuiz from './pages/PlayQuiz'
 import Navbar from './pages/navbar'
+import { AuthProvider } from './context/AuthContext'
 
 
 function App() {
@@ -17,15 +18,17 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-      <Route path='/' element={<Navbar/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/Dashboard' element={<Dashboard/>}/>
-        <Route path='/NewQuiz' element={<NewQuiz/>}/>
-        <Route path='/Pokedex' element={<Pokedex/>}/>
-        <Route path='/Home' element={<Home/>}/>
-        <Route path='/Play' element={<PlayQuiz/>}/>
-        <Route path='/User' element={<UserPage/>}/>
+        <AuthProvider>
+            <Route path='/' element={<Navbar/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/signup' element={<Signup/>}/>
+            <Route path='/Dashboard' element={<Dashboard/>}/>
+            <Route path='/NewQuiz' element={<NewQuiz/>}/>
+            <Route path='/Pokedex' element={<Pokedex/>}/>
+            <Route path='/Home' element={<Home/>}/>
+            <Route path='/Play' element={<PlayQuiz/>}/>
+            <Route path='/User' element={<UserPage/>}/>
+        </AuthProvider>
       </Routes>
     </BrowserRouter>
     </>
