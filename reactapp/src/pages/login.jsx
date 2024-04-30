@@ -1,28 +1,32 @@
-import { React,useRef, useState } from 'react'
+import { React,useEffect,useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import { Link,useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
 export default function Login() {
+
   const navigate  = useNavigate()
   const emailRef=useRef();
   const passwrdRef=useRef();
-  const { dispatch } = useAuth()
+  const { currentUser,dispatch } = useAuth()
   const [loading,setLoading]=useState(false);
-  async function LogIn(){
-    setLoading(true)
-    try{
-      const res= await signInWithEmailAndPassword(auth,emailRef.current.value,passwrdRef.current.value)
+  async function LogIn() {
+    setLoading(true);
+    try {
+      const res = await signInWithEmailAndPassword(auth, emailRef.current.value, passwrdRef.current.value);
       const user = res.user;
-      dispatch({type:"LOGIN",payload:{uid:user.uid}})
-      navigate('/home')
+      console.log(user.uid)
+      dispatch({ type: "LOGIN", payload: { uid: user.uid } });
+      navigate('/home');
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert('Error Occurred');
+    } finally {
+      setLoading(false);
     }
-    catch(e){
-      console.log(e.message)
-      alert('Error Occured')
-    }
-    setLoading(false)
   }
+  
   return (
     <>
     <div className='flex justify-center items-center h-screen'>

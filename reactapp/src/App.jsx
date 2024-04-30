@@ -9,26 +9,36 @@ import Home from './pages/home'
 import UserPage from './pages/UserPage'
 import PlayQuiz from './pages/PlayQuiz'
 import Navbar from './pages/navbar'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth} from './context/AuthContext'
+import { Navigate } from "react-router-dom";
 
 
 function App() {
-
+  
+  function Proctect({children}){
+    const  currentUser= useAuth()
+    return currentUser.currentUser? children:<Navigate to="/login"/>
+  }
+  function UnProctect({children}){
+    const  currentUser= useAuth()
+    return currentUser.currentUser? <Navigate to="/home"/>:children
+  }
   return (
     <>
     <AuthProvider>
     <BrowserRouter>
+      <Navbar/>
       <Routes>
-        
-            <Route path='/' element={<Navbar/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/signup' element={<Signup/>}/>
-            <Route path='/Dashboard' element={<Dashboard/>}/>
-            <Route path='/NewQuiz' element={<NewQuiz/>}/>
-            <Route path='/Pokedex' element={<Pokedex/>}/>
-            <Route path='/Home' element={<Home/>}/>
-            <Route path='/Play' element={<PlayQuiz/>}/>
-            <Route path='/User' element={<UserPage/>}/>
+      
+            <Route path='/' element={<Proctect></Proctect>}/>
+            <Route path='/login' element={<UnProctect><Login/></UnProctect>}/>
+            <Route path='/signup' element={<UnProctect><Signup/></UnProctect>}/>
+            <Route path='/Dashboard' element={<Proctect><Dashboard/></Proctect>}/>
+            <Route path='/NewQuiz' element={<Proctect><NewQuiz/></Proctect>}/>
+            <Route path='/Pokedex' element={<Proctect><Pokedex/></Proctect>}/>
+            <Route path='/Home' element={<Proctect><Home/></Proctect>}/>
+            <Route path='/Play' element={<Proctect><PlayQuiz/></Proctect>}/>
+            <Route path='/User' element={<Proctect><UserPage/></Proctect>}/>
         
       </Routes>
     </BrowserRouter>

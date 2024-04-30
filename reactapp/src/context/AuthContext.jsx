@@ -13,12 +13,15 @@ export function useAuth(){
 const AuthContext=createContext(INITIAL_STATE)
 export function AuthProvider({children}){
     const [state,dispatch] = useReducer(AuthReducer,INITIAL_STATE)
+    const [Notloading,setNotLoading] = useState(true)
     useEffect(()=>{
+        setNotLoading(false)
         localStorage.setItem("user",JSON.stringify(state.currentUser))
+        setNotLoading(true)
     },[state.currentUser])
     return(
         <AuthContext.Provider value={{ currentUser:state.currentUser , dispatch}}>
-            { children}
+            {Notloading && children}
         </AuthContext.Provider>
     )
 }
