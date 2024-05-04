@@ -16,21 +16,27 @@ export default function Signup() {
   const {dispatch} = useAuth();
 
   async function CreateUser(){
+    setLoading(true)
     if(passwrdRef.current.value!==confirmpasswrdRef.current.value){
-      alert(`Passwords dont match`)
+      setErr("Passwords Dont Match")
       return
     }
     if(userNameRef.current.value.length<3){
-      alert(`Username too small`)
+      setErr('Username too small')
       return
     }
-    setLoading(true)
+    
+    if(passwrdRef.current.value<6){
+      setErr('Password too small')
+      return
+    }
     try{
+      setErr('')
       const coll = collection(db, "Users");
       const q = query(coll, where("name", "==", userNameRef.current.value));
       const snapshot = await getCountFromServer(q);
       if(snapshot.data().count!==0){
-        alert(`Username Exists`)
+        setErr(`Username Already Exists`)
         setLoading(false)
         return
       } 
@@ -48,7 +54,7 @@ export default function Signup() {
     }
     catch(e){
       console.log(e.message)
-      alert(`Failed to create account`)
+      setErr(`Failed to create account`)
     }
     setLoading(false)
   }
@@ -124,15 +130,20 @@ export default function Signup() {
               ref={confirmpasswrdRef}
             />
           </div>
+          <div className='flex justify-center'>
           <button
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+             className="border border-gray-600 rounded-md p-2"
             onClick={()=>{CreateUser()}}
             disabled={loading}
           >
             Sign Up
           </button>
-          <div>
-            Already have an account <Link to='/login'>Log In</Link>
+          </div>
+          <div className='text-red-900 flex items-center justify-center'>
+            {err}
+          </div>
+          <div className='flex items-center justify-center'>
+            Already have an account <Link to='/login' className='px-2 text-blue-600'>Log In</Link>
           </div>
         </div>
       </div>
