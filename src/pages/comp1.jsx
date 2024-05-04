@@ -1,15 +1,28 @@
 import React, { useState } from "react";
-import "./styles.css";
-
-export default function App() {
+import "./Comp1.css";
+const Comp1 = () => {
   const [questions, setQuestions] = useState([
     {
       question: "",
       type: "mcq",
       options: ["", "", "", ""],
       answer: "",
+      search: "",
     },
   ]);
+
+  const addQuestion = () => {
+    setQuestions([
+      ...questions,
+      {
+        question: "",
+        type: "mcq",
+        options: ["", "", "", ""],
+        answer: "",
+        search: "",
+      },
+    ]);
+  };
 
   const handleQuestionChange = (index, value) => {
     const updatedQuestions = [...questions];
@@ -35,14 +48,20 @@ export default function App() {
     setQuestions(updatedQuestions);
   };
 
-  const handleAddQuestion = () => {
+  const handleSearchChange = (index, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index].search = value;
+    setQuestions(updatedQuestions);
+  };
+
+  const createNewQuiz = () => {
     setQuestions([
-      ...questions,
       {
         question: "",
         type: "mcq",
         options: ["", "", "", ""],
         answer: "",
+        search: "",
       },
     ]);
   };
@@ -51,11 +70,12 @@ export default function App() {
     <div>
       {questions.map((question, index) => (
         <div key={index}>
+          <h3>Question {index + 1}</h3>
           <input
             type="text"
-            placeholder="Question"
             value={question.question}
             onChange={(e) => handleQuestionChange(index, e.target.value)}
+            placeholder="Enter question"
           />
           <select
             value={question.type}
@@ -67,24 +87,31 @@ export default function App() {
           {question.type === "mcq" && (
             <div>
               {question.options.map((option, optionIndex) => (
-                <input
-                  key={optionIndex}
-                  type="text"
-                  placeholder={`Option ${optionIndex + 1}`}
-                  value={option}
-                  onChange={(e) =>
-                    handleOptionChange(index, optionIndex, e.target.value)
-                  }
-                />
+                <div key={optionIndex}>
+                  <input
+                    type="text"
+                    value={option}
+                    onChange={(e) =>
+                      handleOptionChange(index, optionIndex, e.target.value)
+                    }
+                    placeholder={`Enter option ${optionIndex + 1}`}
+                  />
+                </div>
               ))}
+              <input
+                type="text"
+                value={question.search}
+                onChange={(e) => handleSearchChange(index, e.target.value)}
+                placeholder="Correct answer"
+              />
               <select
                 value={question.answer}
                 onChange={(e) => handleAnswerChange(index, e.target.value)}
               >
                 <option value="">Select Answer</option>
                 {question.options.map((option, optionIndex) => (
-                  <option key={optionIndex} value={option}>
-                    {option}
+                  <option key={optionIndex} value={optionIndex + 1}>
+                    Option {optionIndex + 1}
                   </option>
                 ))}
               </select>
@@ -92,7 +119,11 @@ export default function App() {
           )}
         </div>
       ))}
-      <button onClick={handleAddQuestion}>Add Question</button>
+      <button onClick={addQuestion}>Add Question</button>
+      <button onClick={createNewQuiz}>Create New Quiz</button>
+      <button>Submit Quiz</button>
     </div>
   );
-}
+};
+
+export default Comp1;
