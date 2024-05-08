@@ -4,14 +4,14 @@ import { Link,useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-export default function Login() {
+  export default function Login() {
 
-  const navigate  = useNavigate()
-  const emailRef=useRef();
-  const passwrdRef=useRef();
-  const { currentUser,dispatch } = useAuth()
-  const [loading,setLoading]=useState(false);
-  async function LogIn() {
+    const navigate  = useNavigate()
+    const emailRef=useRef();
+    const passwrdRef=useRef();
+    const { currentUser,dispatch } = useAuth()
+    const [loading,setLoading]=useState(false);
+    async function LogIn() {
     setLoading(true);
     try {
       const res = await signInWithEmailAndPassword(auth, emailRef.current.value, passwrdRef.current.value);
@@ -73,10 +73,10 @@ export default function Login() {
             onClick={()=>{LogIn()}}
             disabled={loading}
           >
-            Log In
+            <div className="border-solid border-black border-2 px-2 py-1 rounded-xl">Log in</div>
           </button>
           <div>
-            Need an account <Link to='/signup'>Sign Up</Link>
+            Need an account? <Link to='/signup'><div className="underline inline">Sign Up</div></Link>
           </div>
         </div>
       </div>

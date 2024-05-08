@@ -11,6 +11,8 @@ import PlayQuiz from './pages/PlayQuiz'
 import Navbar from './pages/navbar'
 import { AuthProvider, useAuth} from './context/AuthContext'
 import { Navigate } from "react-router-dom";
+import LandingPage from './pages/LandingPage'
+import Footer from './pages/footer'
 
 
 function App() {
@@ -29,8 +31,7 @@ function App() {
     <BrowserRouter>
       <Navbar/>
       <Routes>
-      
-            <Route path='/' element={<Proctect></Proctect>}/>
+            <Route path='/' element={<LandingPage/>}/>
             <Route path='/login' element={<UnProctect><Login/></UnProctect>}/>
             <Route path='/signup' element={<UnProctect><Signup/></UnProctect>}/>
             <Route path='/Dashboard' element={<Proctect><Dashboard/></Proctect>}/>
@@ -39,8 +40,8 @@ function App() {
             <Route path='/Home' element={<Proctect><Home/></Proctect>}/>
             <Route path='/Play' element={<Proctect><PlayQuiz/></Proctect>}/>
             <Route path='/User' element={<Proctect><UserPage/></Proctect>}/>
-        
       </Routes>
+      <Footer />
     </BrowserRouter>
     </AuthProvider>
     

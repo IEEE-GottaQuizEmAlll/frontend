@@ -1,50 +1,64 @@
-import { React } from 'react'
-import { Link,useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useAuth } from '../context/AuthContext';
-//<!--
-// v0 by Vercel.
-// https://v0.dev/t/uvW2JgiWahF
-//-->
 
 export default function Navbar() {
-  const navigate = useNavigate()
-  const {currentUser,dispatch} = useAuth()
-  async function SignOut(){
+  const navigate = useNavigate();
+  const { currentUser, dispatch } = useAuth();
+
+  async function SignOut() {
     try {
-      await signOut(auth)
-      dispatch({type: "LOGOUT"})
-      navigate('/login')
+      await signOut(auth);
+      dispatch({ type: "LOGOUT" });
+      navigate('/');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-  } 
-  return (
-    <>
-      
+  }   
 
-      <header className="flex items-center justify-between h-16 px-4 md:px-6 border-b">
-      <div className="flex items-center gap-2 text-lg font-semibold" >
-        <svg width="30" height="100" className='py-8'>
-          <image href="https://wallpapers.com/images/hd/charmander-pixel-art-5uw31akfympfitcn.png" width="30" height="30"/>
-        </svg>
-        <h1>GottaCatchEmAlll</h1>
-      </div>
+  if(currentUser) {
+    return (
+      <header className="flex items-center justify-between h-16 px-4 md:px-5 bg-[#000100] font-bold text-white font-raleway">
+        <div className="flex flex-row items-center gap-2 text-lg">
+          <div className="w-12 h-12 bg-center hover:cursor-pointer hover:scale-90 transition ease-in-out"  onClick={() => navigate('/Home')} style={{backgroundImage: `url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png')`}}></div>
+          <h1 className="text-xl">GottaCatchEmAll</h1>
+        </div>
 
-        <nav className="flex items-center gap-4">
-        <div className="text-sm font-medium hover:underline underline-offset-4">
-            <Link to='/home'>Home</Link>
-          </div>
-          
-          <button onClick={()=>{SignOut()}} className="text-sm font-medium hover:underline underline-offset-4">
-            <span>Sign out</span>
+        <nav className="flex items-center gap-40">
+        <button onClick={() => navigate('/Home')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Home
+          </button>
+          <button onClick={() => navigate('/pokedex')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Pokedex
+          </button>
+          <button onClick={() => navigate('/Play')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Play Quiz
+          </button>
+          <button onClick={() => navigate('/NewQuiz')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Create Quiz
+          </button>
+          <button onClick={SignOut} className="p-2 mr-6 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Sign out
           </button>
         </nav>
       </header>
-    </>
-  )
-}
+    );
+  } else {
+    return (
+      <header className="flex items-center justify-between h-16 px-4 md:px-5 bg-[#000100] font-bold text-white font-raleway">
+        <div className="flex flex-row items-center gap-2 text-lg">
+          <div className="w-12 h-12 bg-center hover:cursor-pointer hover:scale-90"  onClick={() => navigate('/')} style={{backgroundImage: `url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png')`}}></div>
+          <h1 className="text-xl">GottaCatchEmAll</h1>
+        </div>
 
- 
+        <nav className="flex items-center gap-60">
+          <button onClick={() => navigate('/login')} className="p-2 mr-6 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
+            Log In / Sign Up
+          </button>
+        </nav>
+      </header>
+    );
+  }
+}
