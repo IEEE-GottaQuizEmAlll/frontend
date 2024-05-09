@@ -2,7 +2,7 @@ import { React,useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { db } from '../firebase';
 import { doc,updateDoc,collection,getDoc, getDocs } from "firebase/firestore";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams,useNavigate, Link } from 'react-router-dom';
 
 export default function PlayQuiz() {
   const navigate = useNavigate()
@@ -110,6 +110,7 @@ export default function PlayQuiz() {
       })
       newQuizData.LeaderBoard = newQuizData.LeaderBoard.slice(0,50);
       const quizDocRef = doc(db,'Quiz',qid)
+      newQuizData.Popularity += 1;
       await updateDoc(quizDocRef,newQuizData)
       setPlayedQuiz(true)
       alert(`Succesfully Submitted You Got ${correct} Questions Right`);
@@ -126,19 +127,25 @@ export default function PlayQuiz() {
   }
   return (
     <>
-      <h1>{quizData.name}</h1>
-      <h1>By {quizData.CreatorName}</h1>
-      <h1>{playedQuiz? 'You Have Already Played Quiz':'Quiz Has Started All The Best'}</h1>
+    <div className='flex flex-col justify-center items-center'>
+      <h1 className='text-5xl py-5 font-black'>{quizData.name} <Link className='text-sm font-semibold'>By {quizData.CreatorName}</Link></h1>
+      
+      <h1 className='text-xl py-5 font-semibold'>{playedQuiz? 'You Have Already Played Quiz':'Quiz Has Started All The Best'}</h1>
+      <div className='flex flex-col space-y-1'>
       { 
         !playedQuiz && questions.map((q)=>{
-          return (<>
-            <h1>Question {q.qno}</h1>
-            <h1>{q.data.question}</h1>
+          return (
+          <div className='flex flex-col py-2 border border-bold rounded-xl px-3 space-y-2'>
+            <h1 className='text-lg font-semibold'>Question {q.qno}</h1>
+            <h1 className='text-2xl font-semibold'>{q.data.question}</h1>
             {q.data.type==='mcq'? 
             <div>
                 {q.data.options.map(op=>{
-                  return(<div className={op===answers[q.qno]? 'text-green-500':'cursor-pointer'} onClick={()=>{changeAnswer(op,q.qno)}}>
+                  return(
+                    <div className='py-1'>
+                  <div className={op===answers[q.qno]? 'text-green-500':'cursor-pointer'} onClick={()=>{changeAnswer(op,q.qno)}}>
                     {op}
+                  </div>
                   </div>)
                 })}
             </div>
@@ -146,30 +153,44 @@ export default function PlayQuiz() {
             <div>
               <input 
                 type = 'text'
-                className='w-1/2'
-                placeholder={`Type Answer Here for Question ${q.qno}`}
+                className='w-full'
+                placeholder={`Type Answer Here`}
                 onChange={(e)=>{changeAnswerForFill(e.target.value,q.qno)}}
               />
             </div>}
-            </>
+          </div>
           )
         })
         
         
       }
-      <div className={playedQuiz?"hidden":''}><button onClick={(e)=>{e.preventDefault;SubmitQuiz()}}>Submit</button></div>
-      <h1 className={!playedQuiz?"hidden":''}>Leader Board</h1>
-      {
-        playedQuiz && quizData.LeaderBoard.map(l=>{
-            return(
-              <div>
-                <h1>{l.name}</h1>
-                <h1>{l.CorrectAnswers}</h1>
-                <h1>{l.TimeTaken}</h1>
-              </div>
-            )
-        })
-      }
+      </div>
+      <div className={playedQuiz?"hidden":''}><button onClick={(e)=>{e.preventDefault;SubmitQuiz()}} className='py-5 font-semibold'>Submit</button></div>
+      <span className={!playedQuiz?"hidden":''}>
+        <h1 className='text-4xl text-semibold py-3'>Leader Board</h1>
+      </span>
+      <table class="border-collapse w-1/2 my-5" className={!playedQuiz?'hidden':''}>
+          <thead >
+              <tr>
+                  <th class="border border-gray-400 px-4 py-2">Name</th>
+                  <th class="border border-gray-400 px-4 py-2">Correct Answers</th>
+                  <th class="border border-gray-400 px-4 py-2">Time Taken</th>
+              </tr>
+          </thead>
+          <tbody>
+              {playedQuiz && quizData.LeaderBoard.map(l => {
+                  return (
+                      <tr class="py-5 border-b border-gray-400">
+                          <td class="border border-gray-400 px-4 py-2 text-center">{l.name}</td>
+                          <td class="border border-gray-400 px-4 py-2 text-center">{l.CorrectAnswers}</td>
+                          <td class="border border-gray-400 px-4 py-2 text-center">{l.TimeTaken}</td>
+                      </tr>
+                  )
+              })}
+          </tbody>
+      </table>
+
+      </div>
     </>
   )
 }
