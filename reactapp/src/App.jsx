@@ -38,7 +38,7 @@ function App() {
             <Route path='/NewQuiz' element={<Proctect><NewQuiz/></Proctect>}/>
             <Route path='/Pokedex' element={<Proctect><Pokedex/></Proctect>}/>
             <Route path='/Home' element={<Proctect><Home/></Proctect>}/>
-            <Route path='/Play' element={<Proctect><PlayQuiz/></Proctect>}/>
+            <Route path='/Play/:qid' element={<Proctect><PlayQuiz/></Proctect>}/>
             <Route path='/User' element={<Proctect><UserPage/></Proctect>}/>
       </Routes>
       <Footer />
