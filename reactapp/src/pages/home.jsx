@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(()=>{
     setLoading(true)
-    if(quizType===0){
+    if(quizType===1){
       async function RecentQuizes(){
         try {
           const ref = collection(db,"Quiz");
@@ -36,7 +36,7 @@ export default function Home() {
       }
       RecentQuizes();
     }
-    else if(quizType===1){
+    else if(quizType===0){
       async function PopularQuizes(){
         try {
           const ref = collection(db,"Quiz");

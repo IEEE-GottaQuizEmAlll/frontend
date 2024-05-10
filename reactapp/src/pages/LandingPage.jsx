@@ -21,7 +21,7 @@ function LandingPage() {
 
     function HandleClick() {
         const pokeimg = document.querySelector('#pokeimg');
-        const randPokeId = Math.floor(Math.random()*1025) + 1;
+        const randPokeId = Math.floor(Math.random()*151) + 1;
         console.log(randPokeId);
         SetPokeId(randPokeId);
         console.log('clicked!');

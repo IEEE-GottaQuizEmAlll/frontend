@@ -134,7 +134,7 @@ export default function Signup() {
           </div>
           <div className='flex justify-center'>
           <button
-             className="border border-gray-600 rounded-lg px-2 py-1 text-white bg-black font-semibold shadow-lg hover:shadow-none"
+             className="mt-4 border border-gray-600 rounded-lg px-2 py-1 text-white bg-black font-semibold shadow-lg hover:shadow-none"
             onClick={()=>{CreateUser()}}
             disabled={loading}
           >
