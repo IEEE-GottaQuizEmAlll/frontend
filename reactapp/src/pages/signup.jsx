@@ -112,6 +112,7 @@ export default function Signup() {
               id="password"
               required=""
               type="password"
+              placeholder='Password...'
               ref={passwrdRef}
             />
           </div>
@@ -127,12 +128,13 @@ export default function Signup() {
               id="confirm-password"
               required=""
               type="password"
+              placeholder='Confirm...'
               ref={confirmpasswrdRef}
             />
           </div>
           <div className='flex justify-center'>
           <button
-             className="border border-gray-600 rounded-md p-2"
+             className="mt-4 border border-gray-600 rounded-lg px-2 py-1 text-white bg-black font-semibold shadow-lg hover:shadow-none"
             onClick={()=>{CreateUser()}}
             disabled={loading}
           >
@@ -143,7 +145,7 @@ export default function Signup() {
             {err}
           </div>
           <div className='flex items-center justify-center'>
-            Already have an account <Link to='/login' className='px-2 text-blue-600'>Log In</Link>
+            Already have an account? <Link to='/login' className='px-2 text-blue-600 underline'>Log In</Link>
           </div>
         </div>
       </div>

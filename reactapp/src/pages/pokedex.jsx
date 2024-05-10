@@ -5,7 +5,7 @@ async function fetchPokemon() {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokedex/1');
     const data = await response.json();
-    const pokemonData = await Promise.all(data.pokemon_entries.slice(0,400).map(async (entry) => {
+    const pokemonData = await Promise.all(data.pokemon_entries.slice(0,200).map(async (entry) => {
       console.log(entry.entry_number);
       const species_response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${entry.entry_number}`);
       const species_data = await species_response.json();

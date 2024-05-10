@@ -30,7 +30,7 @@ export default function Login() {
   
   return (
     <>
-    <div className='flex justify-center items-center h-screen'>
+    <div className='flex justify-center items-center p-24 font-raleway'>
       <div className="px-4 py-6 space-y-6 md:px-10">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Log In</h1>
@@ -66,12 +66,13 @@ export default function Login() {
               id="password"
               required=""
               type="password"
+              placeholder='Password...'
               ref={passwrdRef}
             />
           </div>
           <div className='flex justify-center'>
             <button
-              className="border border-gray-600 rounded-md p-2"
+              className= " mt-4 border border-gray-600 rounded-lg px-2 py-1 text-white bg-black font-semibold shadow-lg hover:shadow-none"
               onClick={()=>{LogIn()}}
               disabled={loading}
             >
@@ -82,7 +83,7 @@ export default function Login() {
             {displayErr}
           </div>
           <div className='flex items-center justify-center'>
-            Need an account <Link to='/signup' className='px-2 text-blue-600'>Sign Up</Link>
+            Need an account? <Link to='/signup' className='px-2 text-blue-600 underline hover:opacity-80'>Sign Up</Link>
           </div>
         </div>
       </div>
