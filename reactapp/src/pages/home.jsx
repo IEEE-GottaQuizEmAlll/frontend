@@ -88,46 +88,50 @@ export default function Home() {
   }
   return (
     <>
-      <div className="flex justify-center items-center h-full py-5 text-lg">
-        <div className='flex space-x-3'>
-          <div className={quizType===0? 'bg-black text-white rounded-sm': ""}>
-          <button className='px-2 ' onClick={()=>{setQuizType(0)}}>
-            Popular
-          </button>
-          </div>
-          <div className={quizType===1? 'bg-black text-white rounded-sm': ""}>
-          <button className='px-2' onClick={()=>{setQuizType(1)}}>
-            Recent            
-          </button>
-          </div>
-          <div className={quizType===2? 'bg-black text-white rounded-sm': ""}>
-          <button className='px-2' onClick={()=>{setQuizType(2)}}>
-            Search
-          </button>
+      <div className=' min-h-[640px] bg-[#FF9441]'>
+      <div className="flex flex-wrap justify-center items-center h-12 py-5 text-lg font-semibold">
+          <div className='flex space-x-3'>
+            <div className={quizType===0? 'bg-black text-white rounded-lg': ""}>
+            <button className='px-2 ' onClick={()=>{setQuizType(0)}}>
+              Popular
+            </button>
+            </div>
+            <div className={quizType===1? 'bg-black text-white rounded-lg': ""}>
+            <button className='px-2' onClick={()=>{setQuizType(1)}}>
+              Recent            
+            </button>
+            </div>
+            <div className={quizType===2? 'bg-black text-white rounded-lg': ""}>
+            <button className='px-2' onClick={()=>{setQuizType(2)}}>
+              Search
+            </button>
+            </div>
           </div>
         </div>
+        
+        <div className='mx-10 text-lg flex flex-col space-y-3'>
+      <div className={quizType==2? 'visible flex':'hidden'}>
+      <input
+          className=" mt-4 flex h-10 w-full md:w-96 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring focus:border-blue-300"
+          placeholder="Should be at least 5 characters"
+          ref={searchRef}
+        />
+        <button type='button' className='mt-4 mx-3 px-5 border border-gray-600 rounded-lg bg-black text-white font-semibold p-1' onClick={(e)=>ResultQuizes(e)}>Search</button>
+        </div>
+        <h1 className='text-xl font-bold underline'>Results by {quizType===0? "Popularity":quizType===1?"Recent":"Search"}</h1>
+        <div className='flex flex-wrap gap-8 '>
+        { !loading &&
+          results.map(doc=>{
+            console.log(doc)
+            return(
+              <QuizCard doc={doc}/>
+            )
+          })
+        }
+        </div>
+        </div>
       </div>
-      <div className='mx-10 text-lg flex flex-col space-y-3'>
-    <div className={quizType==2? 'visible flex':'hidden'}>
-    <input
-        className="flex h-10 w-full md:w-96 rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring focus:border-blue-300"
-        placeholder="Should be at least 5 characters"
-        ref={searchRef}
-      />
-      <button type='button' className='mx-3 px-5 border border-gray-600 rounded-md p-2' onClick={(e)=>ResultQuizes(e)}>Search</button>
-      </div>
-      <h1 className='text-xl'>Results by {quizType===0? "Popularity":quizType===1?"Recent":"Search"}</h1>
-      <div className='flex flex-col'>
-      { !loading &&
-        results.map(doc=>{
-          console.log(doc)
-          return(
-            <QuizCard doc={doc}/>
-          )
-        })
-      }
-      </div>
-      </div>
+      <div className="h-12 flex items-center justify-center bg-[#DE5239] font-raleway font-bold">Made by IEEE | GottaQuizEmAll</div>
     </>
   )
 }

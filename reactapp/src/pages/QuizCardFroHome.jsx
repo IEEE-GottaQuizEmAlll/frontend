@@ -5,11 +5,11 @@ export default function QuizCard({doc}) {
     const navigate = useNavigate();
   return (
     <>
-      <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md" data-v0-t="card">
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md bg-white border-black shadow-gray-700 shadow-lg hover:shadow-none" data-v0-t="card">
   <div class="grid gap-4 p-6">
     <div class="space-y-2">
       <h3 class="text-2xl font-bold">{doc.data.name}</h3>
-      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -27,7 +27,7 @@ export default function QuizCard({doc}) {
         </svg>
         <span>{doc.data.CreatorName}</span>
       </div>
-      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -53,11 +53,11 @@ export default function QuizCard({doc}) {
         </svg>
         <span>{doc.data.date.toDate().toLocaleString()}</span>
       </div>
-      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-600">
         <span>Popularity {doc.data.Popularity}</span>
       </div>
     </div>
-    <button type='button' onClick={()=>navigate(`/Play/${doc.id}`)} class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+    <button type='button' onClick={()=>navigate(`/Play/${doc.id}`)} class="border-2 w-24 rounded-lg text-md">
       Play Quiz
     </button>
   </div>

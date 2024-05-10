@@ -127,24 +127,25 @@ export default function PlayQuiz() {
   }
   return (
     <>
-    <div className='flex flex-col justify-center items-center'>
+     <div className='font-raleway p-10 bg-[#FF9441] min-h-[625px]'>
+     <div className='flex flex-col justify-center items-center'>
       <h1 className='text-5xl py-5 font-black'>{quizData.name} <Link className='text-sm font-semibold'>By {quizData.CreatorName}</Link></h1>
       
-      <h1 className='text-xl py-5 font-semibold'>{playedQuiz? 'You Have Already Played Quiz':'Quiz Has Started All The Best'}</h1>
-      <div className='flex flex-col space-y-1'>
+      <h1 className='text-xl py-5 font-semibold'>{playedQuiz? 'You Have Already Played Quiz!':'Quiz Has Started All The Best!!'}</h1>
+      <div className='flex flex-col gap-4 space-y-1'>
       { 
         !playedQuiz && questions.map((q)=>{
           return (
-          <div className='flex flex-col py-2 border border-bold rounded-xl px-3 space-y-2'>
+          <div className='flex flex-col p-4 border border-bold rounded-xl  space-y-2 bg-white border-2 border-black'>
             <h1 className='text-lg font-semibold'>Question {q.qno}</h1>
             <h1 className='text-2xl font-semibold'>{q.data.question}</h1>
             {q.data.type==='mcq'? 
             <div>
                 {q.data.options.map(op=>{
                   return(
-                    <div className='py-1'>
+                    <div className='py-1 text-medium hover:border-b-2'>
                   <div className={op===answers[q.qno]? 'text-green-500':'cursor-pointer'} onClick={()=>{changeAnswer(op,q.qno)}}>
-                    {op}
+                    {'-> '}{op}
                   </div>
                   </div>)
                 })}
@@ -153,7 +154,7 @@ export default function PlayQuiz() {
             <div>
               <input 
                 type = 'text'
-                className='w-full'
+                className='w-full focus:outline-none border-b-2'
                 placeholder={`Type Answer Here`}
                 onChange={(e)=>{changeAnswerForFill(e.target.value,q.qno)}}
               />
@@ -165,25 +166,25 @@ export default function PlayQuiz() {
         
       }
       </div>
-      <div className={playedQuiz?"hidden":''}><button onClick={(e)=>{e.preventDefault;SubmitQuiz()}} className='py-5 font-semibold'>Submit</button></div>
+      <div className={playedQuiz?"hidden":''}><button onClick={(e)=>{e.preventDefault;SubmitQuiz()}} className='py-1 px-2 mt-6 font-semibold border-2 border-black rounded-lg text-white bg-black shadow-lg hover:shadow-none hover:text-[#FF9441]'>Submit</button></div>
       <span className={!playedQuiz?"hidden":''}>
-        <h1 className='text-4xl text-semibold py-3'>Leader Board</h1>
+        <h1 className='text-3xl font-bold py-3 underline'>Leader Board</h1>
       </span>
       <table class="border-collapse w-1/2 my-5" className={!playedQuiz?'hidden':''}>
           <thead >
               <tr>
-                  <th class="border border-gray-400 px-4 py-2">Name</th>
-                  <th class="border border-gray-400 px-4 py-2">Correct Answers</th>
-                  <th class="border border-gray-400 px-4 py-2">Time Taken</th>
+                  <th class="border border-black border-2 px-4 py-2 bg-white ">Name</th>
+                  <th class="border border-black border-2 px-4 py-2 bg-white">Correct Answers</th>
+                  <th class="border border-black border-2 px-4 py-2 bg-white">Time Taken</th>
               </tr>
           </thead>
           <tbody>
               {playedQuiz && quizData.LeaderBoard.map(l => {
                   return (
-                      <tr class="py-5 border-b border-gray-400">
-                          <td class="border border-gray-400 px-4 py-2 text-center">{l.name}</td>
-                          <td class="border border-gray-400 px-4 py-2 text-center">{l.CorrectAnswers}</td>
-                          <td class="border border-gray-400 px-4 py-2 text-center">{l.TimeTaken}</td>
+                      <tr class="py-5 border-b border-black border-2 bg-white">
+                          <td class="border border-black border-2 px-4 py-2 text-center">{l.name}</td>
+                          <td class="border border-black border-2 px-4 py-2 text-center">{l.CorrectAnswers}</td>
+                          <td class="border border-black border-2 px-4 py-2 text-center">{l.TimeTaken}</td>
                       </tr>
                   )
               })}
@@ -191,6 +192,8 @@ export default function PlayQuiz() {
       </table>
 
       </div>
+     </div>
+     <div className="h-12 flex items-center justify-center bg-[#DE5239] font-raleway font-bold">Made by IEEE | GottaQuizEmAll</div>
     </>
   )
 }

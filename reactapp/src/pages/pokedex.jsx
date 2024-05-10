@@ -55,8 +55,8 @@ function PokemonList({limit, searchTerm, sortTerm}) {
     <>
       <ul className='flex flex-wrap gap-16 min-h-64'>
         {pokemonData.length?pokemonData.map((pokemon, index) => (
-          <li key={index} className=' shadow-lg shadow-gray-700 flex flex-col gap-2 items-center bg-slate-200 p-4 h-72 w-56 rounded-lg text-black font-bold hover:shadow-none transition ease-in-out duration-100'  >
-            <div className='w-36 h-36 bg-contain rounded-lg' style={{backgroundImage: `url(${pokemon.img})`, backgroundColor: `${pokemon.color}`}}></div>
+          <li key={index} className=' shadow-lg shadow-gray-700 flex flex-col justify-center gap-2 items-center bg-[#FFFFFF] p-4 h-72 w-56 rounded-3xl text-black font-bold hover:shadow-none hover:scale-105 transition ease-in-out duration-500'  >
+            <div className='w-36 h-36 bg-contain rounded-3xl' style={{backgroundImage: `url(${pokemon.img})`, backgroundColor: `${pokemon.color}`}}></div>
             <div>#{pokemon.id}</div>  
             <div>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</div>    
             <div className='flex gap-2'>Types: 
@@ -91,11 +91,11 @@ export default function Pokedex() {
 
   return (
     <>
-      <div className=' flex flex-col gap-4 bg-gray-500 h-auto font-raleway p-12 pb-8'>
-        <div className=' font-extrabold text-4xl'>The Pokedex</div>
-        <div className=' font-medium'>Learn about all your favourite pokemon right here!</div>
+      <div className=' flex flex-col items-center gap-4 bg-[#000100] h-auto font-raleway p-12 pb-8'>
+        <div className=' font-extrabold text-4xl text-white'>The Pokedex</div>
+        <div className=' font-medium text-white'>Learn about all your favourite pokemon right here!</div>
         <div className='flex gap-4'>
-          <input type="text" value={searchTerm} onChange={handleSearch} className=' w-36 rounded-lg py-1 px-2 shadow-lg shadow-gray-600 focus:shadow-none focus: outline-none transition ease-in-out duration-200' placeholder='Search...' />
+          <input type="text" value={searchTerm} onChange={handleSearch} className=' w-36 rounded-lg py-1 px-2 focus: outline-none transition ease-in-out duration-200' placeholder='Search...' />
         </div>
         <div className=' flex gap-3 mb-8'>
           <button onClick={() => setSortTerm(1)} className=' rounded-lg bg-[#CC0000] px-2 py-1 text-white font-semibold shadow-lg shadow-gray-600 focus:shadow-none hover:opacity-80 transition ease-in-out duration-200'>Alphabet</button>

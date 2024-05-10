@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "./Comp1.css";
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, addDoc, collection, setDoc, serverTimestamp } from "firebase/firestore"; 
 import { db } from "../firebase";
 
-const Comp1 = () => {
+const NewQuiz = () => {
   const { currentUser } = useAuth();
 
   const uid = currentUser.uid;
@@ -125,28 +124,30 @@ const Comp1 = () => {
   };
 
   return (
-    <div>
-    <div>hello</div>
-    <div>
+    
+    <>
+      <div className="flex justify-center items-center p-8 bg-[#FF9441]">
+      <div className=" bg-[#FFFFFF] p-16 flex flex-col gap-4 justify-center items-center font-raleway border-2 border-black w-[500px] rounded-2xl">
+      <div className="text-4xl mb-8 font-extrabold">Create The Quiz</div>
       <input
-        className="input"
+        className="input border-b-2 focus:outline-none"
         type="text"
         value={quizName}
         onChange={(e) => setQuizName(e.target.value)}
         placeholder="Quiz Name"
       />
       {questions.map((question, index) => (
-        <div key={index}>
-          <h3>Question {index + 1}</h3>
+        <div key={index} className="flex flex-col gap-4">
+          <h3>Question {index + 1}?</h3>
           <input
-            className="input"
+            className="input border-b-2"
             type="text"
             value={question.question}
             onChange={(e) => handleQuestionChange(index, e.target.value)}
             placeholder="Enter question"
           />
           <select
-            className="select"
+            className="select border-2 rounded-lg"
             value={question.type}
             onChange={(e) => handleTypeChange(index, e.target.value)}
           >
@@ -173,7 +174,7 @@ const Comp1 = () => {
                 </div>
               ))}
               <select
-                className="select"
+                className="select mt-4 border-b-2"
                 value={question.answer}
                 onChange={(e) => handleAnswerChange(index, e.target.value)}
               >
@@ -201,17 +202,23 @@ const Comp1 = () => {
           )}
         </div>
       ))}
-      <button className="button" onClick={addQuestion}>
+      <div className="flex gap-4 mt-4">
+      <button className="button text-sm border-2 px-2 py-1 rounded-lg shadow-sm hover:shadow-none hover:opacity-80" onClick={addQuestion}>
         Add Question
       </button>
-      <button className="button" onClick={createNewQuiz}>
+      <button className="button text-sm border-2 px-2 py-1 rounded-lg shadow-sm hover:shadow-none hover:opacity-80" onClick={createNewQuiz}>
         Create New Quiz
       </button>
-      <button className="button" onClick={submitQuiz}>
+      <button className="button text-sm border-2 px-2 py-1 rounded-lg shadow-sm hover:shadow-none hover:opacity-80" onClick={submitQuiz}>
         Submit Quiz
       </button>
+      </div>
     </div>
+    
     </div>
+    <div className="h-12 flex items-center justify-center bg-[#DE5239] font-raleway font-bold">Made by IEEE | GottaQuizEmAll</div>
+    </>
+    
   );
 };
-export default Comp1;
+export default NewQuiz;
