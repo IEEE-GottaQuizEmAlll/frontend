@@ -7,7 +7,7 @@ import { db } from "../firebase";
 const Comp1 = () => {
   const { currentUser } = useAuth();
 
-  const uid = currentUser.uid;
+  const uid = currentUser;
 
   // State for the questions
   const [questions, setQuestions] = useState([
@@ -96,15 +96,17 @@ const Comp1 = () => {
     // Check if a quiz with this name already exists
     const quizRef = doc(db, "Quiz", quizName);
     const quizSnap = await getDoc(quizRef);
-
+    const userRef = doc(db,'Users',currentUser)
+    const userSnap = await getDoc(userRef)
+    const userData = userSnap.data()
     if (quizSnap.exists()) {
       alert("A quiz with this name already exists");
       return;
     }
-
+    console.log(userData)
     // Create the quiz data
     const quizData = {
-      CreatorName: userData.username,
+      CreatorName: userData.name,
       LeaderBoard: [],
       Popularity: 0,
       Rating: 0,
