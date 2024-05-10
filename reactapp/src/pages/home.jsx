@@ -13,11 +13,11 @@ export default function Home() {
 
   useEffect(()=>{
     setLoading(true)
-    if(quizType===0){
+    if(quizType===1){
       async function RecentQuizes(){
         try {
           const ref = collection(db,"Quiz");
-          const q = query(ref,orderBy("date","desc"),limit(10));
+          const q = query(ref,orderBy("date",'desc'),limit(10));
           const res = await getDocs(q);
           const searchData = []
           res.forEach((doc) => (
@@ -36,7 +36,7 @@ export default function Home() {
       }
       RecentQuizes();
     }
-    else if(quizType===1){
+    else if(quizType===0){
       async function PopularQuizes(){
         try {
           const ref = collection(db,"Quiz");
