@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, addDoc, collection, setDoc, serverTimestamp } from "firebase/firestore"; 
 import { db } from "../firebase";
 
-const Comp1 = () => {
+const NewQuiz = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
