@@ -26,15 +26,12 @@ export default function Navbar() {
           <h1 className="text-xl">GottaCatchEmAll</h1>
         </div>
 
-        <nav className="flex items-center gap-40">
+        <nav className="flex items-center gap-56">
         <button onClick={() => navigate('/Home')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
             Home
           </button>
           <button onClick={() => navigate('/pokedex')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
             Pokedex
-          </button>
-          <button onClick={() => navigate('/Play')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
-            Play Quiz
           </button>
           <button onClick={() => navigate('/NewQuiz')} className="p-2 rounded-xl text-sm hover:underline underline-offset-4 hover:opacity-70">
             Create Quiz

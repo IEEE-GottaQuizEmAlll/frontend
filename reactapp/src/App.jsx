@@ -12,18 +12,19 @@ import Navbar from './pages/navbar'
 import { AuthProvider, useAuth} from './context/AuthContext'
 import { Navigate } from "react-router-dom";
 import LandingPage from './pages/LandingPage'
-import Footer from './pages/footer'
+import PokemonPage from './pages/pokemon_info'
+
 
 
 function App() {
   
   function Proctect({children}){
-    const  currentUser= useAuth()
+    const currentUser= useAuth()
     return currentUser.currentUser? children:<Navigate to="/login"/>
   }
   function UnProctect({children}){
-    const  currentUser= useAuth()
-    return currentUser.currentUser? <Navigate to="/home"/>:children
+    const currentUser= useAuth()
+    return currentUser.currentUser? <Navigate to="/Home"/>:children
   }
   return (
     <>
@@ -40,8 +41,8 @@ function App() {
             <Route path='/Home' element={<Proctect><Home/></Proctect>}/>
             <Route path='/Play' element={<Proctect><PlayQuiz/></Proctect>}/>
             <Route path='/User' element={<Proctect><UserPage/></Proctect>}/>
+            <Route path='/PokemonInfo' element={<Proctect><PokemonPage /></Proctect>}/>
       </Routes>
-      <Footer />
     </BrowserRouter>
     </AuthProvider>
     
