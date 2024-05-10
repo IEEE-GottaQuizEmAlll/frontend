@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Comp1.css";
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, addDoc, collection, setDoc, serverTimestamp } from "firebase/firestore"; 
 import { db } from "../firebase";
 
 const Comp1 = () => {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
 
   const uid = currentUser;
-
   // State for the questions
   const [questions, setQuestions] = useState([
     {
@@ -124,6 +125,7 @@ const Comp1 = () => {
     }
 
     alert("Quiz created successfully");
+    navigate('/home')
   };
 
   return (
@@ -207,7 +209,7 @@ const Comp1 = () => {
         Add Question
       </button>
       <button className="button" onClick={createNewQuiz}>
-        Create New Quiz
+        Reset Quiz
       </button>
       <button className="button" onClick={submitQuiz}>
         Submit Quiz
