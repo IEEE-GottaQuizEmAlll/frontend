@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, addDoc, collection, setDoc, serverTimestamp } from "firebase/firestore"; 
 import { db } from "../firebase";
 
-const NewQuiz = () => {
+const Comp1 = () => {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
 
-  const uid = currentUser.uid;
-
+  const uid = currentUser;
   // State for the questions
   const [questions, setQuestions] = useState([
     {
@@ -95,15 +96,17 @@ const NewQuiz = () => {
     // Check if a quiz with this name already exists
     const quizRef = doc(db, "Quiz", quizName);
     const quizSnap = await getDoc(quizRef);
-
+    const userRef = doc(db,'Users',currentUser)
+    const userSnap = await getDoc(userRef)
+    const userData = userSnap.data()
     if (quizSnap.exists()) {
       alert("A quiz with this name already exists");
       return;
     }
-
+    console.log(userData)
     // Create the quiz data
     const quizData = {
-      CreatorName: userData.username,
+      CreatorName: userData.name,
       LeaderBoard: [],
       Popularity: 0,
       Rating: 0,
@@ -121,6 +124,7 @@ const NewQuiz = () => {
     }
 
     alert("Quiz created successfully");
+    navigate('/home')
   };
 
   return (
@@ -207,7 +211,7 @@ const NewQuiz = () => {
         Add Question
       </button>
       <button className="button text-sm border-2 px-2 py-1 rounded-lg shadow-sm hover:shadow-none hover:opacity-80" onClick={createNewQuiz}>
-        Create New Quiz
+        Reset Quiz
       </button>
       <button className="button text-sm border-2 px-2 py-1 rounded-lg shadow-sm hover:shadow-none hover:opacity-80" onClick={submitQuiz}>
         Submit Quiz
