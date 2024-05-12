@@ -88,7 +88,7 @@ export default function Home() {
   }
   return (
     <>
-      <div className=' min-h-[640px] bg-[#FF9441]'>
+      <div className=' min-h-[640px] bg-[#FF9441] pb-8'>
       <div className="flex flex-wrap justify-center items-center h-12 py-5 text-lg font-semibold">
           <div className='flex space-x-3'>
             <div className={quizType===0? 'bg-black text-white rounded-lg': ""}>
