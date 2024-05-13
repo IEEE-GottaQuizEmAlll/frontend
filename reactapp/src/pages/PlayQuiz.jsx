@@ -184,7 +184,7 @@ export default function PlayQuiz() {
                       <tr class="py-5 border-b border-black border-2 bg-white">
                           <td class="border border-black border-2 px-4 py-2 text-center">{l.name}</td>
                           <td class="border border-black border-2 px-4 py-2 text-center">{l.CorrectAnswers}</td>
-                          <td class="border border-black border-2 px-4 py-2 text-center">{l.TimeTaken}</td>
+                          <td class="border border-black border-2 px-4 py-2 text-center">{Math.round((l.TimeTaken/1000)*100)/100 + " s"}</td>
                       </tr>
                   )
               })}

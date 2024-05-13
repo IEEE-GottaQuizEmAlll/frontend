@@ -17,7 +17,7 @@ export default function Home() {
       async function RecentQuizes(){
         try {
           const ref = collection(db,"Quiz");
-          const q = query(ref,orderBy("date",'desc'),limit(10));
+          const q = query(ref,orderBy("date",'desc'),limit(20));
           const res = await getDocs(q);
           const searchData = []
           res.forEach((doc) => (
@@ -40,7 +40,7 @@ export default function Home() {
       async function PopularQuizes(){
         try {
           const ref = collection(db,"Quiz");
-          const q = query(ref,orderBy("Popularity","desc"),limit(10));
+          const q = query(ref,orderBy("Popularity","desc"),limit(20));
           const res = await getDocs(q);
           const searchData = []
           res.forEach((doc) => (
